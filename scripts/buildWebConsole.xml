@@ -1,0 +1,49 @@
+<project name="Analytics App" default="all">
+
+	<property name="propsfile" value="local" />
+	<property file="${propsfile}.build.properties" />
+	<!-- all apps properties file -->
+	<property file="../../${propsfile}.build.properties" />
+
+
+	<property name="debug" value="true" />
+   
+
+	<property name="app.name" value="analyticsApp" />
+	<property name="app.version" value="default_version" />
+
+	<property name="src.dir" value="../src" />
+	<property name="build.dir" value="../build"/>
+	<property name="shared.lib.dir" value="../WebContent/WEB-INF/lib"/>
+	<property name="shared.properties.dir" value="../../shared/properties"/>
+	<property name="jar.file.name" value="${app.name}.jar"/>
+
+
+	<target name="all" depends="clean,compile,createJar" />
+	
+	<target name="compile">
+		<javac srcdir="${src.dir}" destdir="${build.dir}/classes" debug="${debug}">
+			
+			<include name="**/**/*.java" />
+			<include name="**/**/*.java" />
+			<classpath>
+				<pathelement location="${build.dir}/classes" />
+						
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="createJar" depends="compile" >
+		<jar destfile="../${jar.file.name}">
+			
+			<fileset dir="${build.dir}/classes"/>
+		</jar>
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<mkdir 	dir="${build.dir}" />
+		<mkdir 	dir="${build.dir}/classes" />
+	</target>
+		
+</project>
